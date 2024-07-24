@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تضمين موقع داخل iframe مع تسجيل الدخول</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        async function login() {
+            const loginUrl = 'https://app.dupdub.com/login?to=%2Ftools%2Fhome%3FcookiesPolicy%3Dtrue&status=login';
+            const credentials = {
+                username: 'send.shamo@gmail.com',
+                password: 'Shamo+2002'
+            };
+
+            try {
+                const response = await fetch(loginUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentials),
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    // تسجيل الدخول ناجح
+                    document.querySelector('iframe').src = 'https://app.dupdub.com/overview/article-voice/2007667?wn=c2VuZC5zaGFtb0BnbWFpbC5jb20=';
+                } else {
+                    console.error('فشل تسجيل الدخول');
+                }
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول', error);
+            }
+        }
+
+        window.onload = login;
+    </script>
+    <iframe src=""></iframe>
+</body>
+</html>
